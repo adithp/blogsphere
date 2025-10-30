@@ -1,0 +1,108 @@
+{% extends 'user/loginbase.html' %}
+
+{% block logincontent %}
+
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4">
+    <main class="w-full max-w-md">
+        <div class="flex flex-col items-center justify-center text-center mb-8">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="size-8 text-primary">
+                    <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                            d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z"
+                            fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold tracking-tight text-[#0e151b] dark:text-slate-50">BlogSphere</h2>
+            </div>
+            <h1 class="text-4xl font-black text-[#0e151b] dark:text-slate-50 leading-tight tracking-[-0.033em]">
+                Create Your Account</h1>
+            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">Join our community of writers and readers.</p>
+        </div>
+        <div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-6 sm:p-8">
+            <form action="" class="space-y-6" method="POST">
+                {% csrf_token %}
+
+                <!-- Non-field Errors -->
+                {% if form.non_field_errors %}
+                <span class="form-error">
+                    <span class="material-symbols-outlined">error</span>
+                    {{ form.non_field_errors }}
+                </span>
+                {% endif %}
+
+                <!-- Full Name Field -->
+                <div>
+                    <label
+                        class="block text-base font-medium leading-normal text-[#0e151b] dark:text-slate-200 pb-2">Full
+                        Name</label>
+                    <div class="relative mt-1">
+                        <span
+                            class="material-symbols-outlined input-icon pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 dark:text-gray-500 transition-colors">person</span>
+                        {{form.name}}
+                    </div>
+                    {% if form.name.errors %}
+                    <span class="form-error">
+                        <span class="material-symbols-outlined">error</span>
+                        {{form.name.errors}}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label
+                        class="block text-base font-medium leading-normal text-[#0e151b] dark:text-slate-200 pb-2">Email
+                        Address</label>
+                    <div class="relative mt-1">
+                        <span
+                            class="material-symbols-outlined input-icon pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 dark:text-gray-500 transition-colors">mail</span>
+                        {{form.email}}
+                    </div>
+                    {% if form.email.errors %}
+                    <span class="form-error">
+                        <span class="material-symbols-outlined">error</span>
+                        {{form.email.errors}}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label
+                        class="block text-base font-medium leading-normal text-[#0e151b] dark:text-slate-200 pb-2">Password</label>
+                    <div class="relative mt-1">
+                        <span
+                            class="material-symbols-outlined input-icon pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 dark:text-gray-500 transition-colors">lock</span>
+                        {{form.password}}
+                    </div>
+                    {% if form.password.errors %}
+                    <span class="form-error">
+                        <span class="material-symbols-outlined">error</span>
+                        {{form.password.errors}}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button
+                        class="group relative flex w-full justify-center rounded-lg bg-primary px-4 py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-200 ease-in-out hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        type="submit">
+                        <span
+                            class="absolute inset-0 bg-white opacity-0 transition-opacity group-active:opacity-20"></span>
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            <p class="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                Already have an account?
+                <a class="font-medium text-primary hover:text-primary/90" href="{% url 'login' %}">
+                    Log In
+                </a>
+            </p>
+        </div>
+    </main>
+</div>
+
+{% endblock logincontent %}
