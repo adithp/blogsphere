@@ -1,0 +1,93 @@
+{% extends 'blog/base.html' %}
+{% block bodycontent %}
+
+<body class="font-display bg-background-light dark:bg-background-dark">
+    <div class="relative flex min-h-screen w-full">
+        <!-- SideNavBar -->
+        {% include 'admin/header.html' %}
+        <!-- Main Content -->
+        <main class="flex-1 p-6 lg:p-10">
+            <div class="mx-auto max-w-7xl">
+                <!-- PageHeading and SearchBar -->
+                <div class="flex flex-wrap items-center justify-between gap-6 mb-8">
+                    <p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight tracking-tight">Manage
+                        Blog Posts</p>
+                    <div class="flex gap-4 w-full sm:w-auto">
+                        <div class="flex-1 sm:flex-none sm:w-72">
+                            <label class="flex flex-col h-11 w-full">
+                                <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                                    <div
+                                        class="text-slate-500 dark:text-slate-400 flex border-slate-300 dark:border-slate-700 bg-white dark:bg-background-dark items-center justify-center pl-3.5 rounded-l-lg border border-r-0">
+                                        <span class="material-symbols-outlined">search</span>
+                                    </div>
+                                    <input
+                                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-slate-300 dark:border-slate-700 bg-white dark:bg-background-dark h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 border-l-0 text-sm font-normal leading-normal ring-inset"
+                                        placeholder="Search by title or author..." value="" />
+                                </div>
+                            </label>
+                        </div>
+                        <button
+                            class="flex items-center justify-center gap-2 h-11 px-5 bg-primary text-white text-sm font-medium rounded-lg shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:ring-offset-background-dark">
+                            <span class="material-symbols-outlined !text-xl">add</span>
+                            <span>New Post</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Table Container -->
+                <div
+                    class="bg-white dark:bg-[#182635] rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-slate-50 dark:bg-slate-900/50">
+                                <tr>
+
+                                    <th
+                                        class="px-4 py-3 text-left text-slate-600 dark:text-slate-400 font-medium whitespace-nowrap">
+                                        Title</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-slate-600 dark:text-slate-400 font-medium whitespace-nowrap">
+                                        Author</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-slate-600 dark:text-slate-400 font-medium whitespace-nowrap">
+                                        Created Date</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-slate-600 dark:text-slate-400 font-medium whitespace-nowrap">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for post in posts %}
+                                <tr
+                                    class="border-t border-slate-200 dark:border-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-900/20 transition-colors">
+
+                                    <td class="px-4 py-3 text-slate-800 dark:text-slate-200 font-medium">{{post.title}}
+                                    </td>
+                                    <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{{post.author}}</td>
+                                    <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{{post.created}}</td>
+                                    <td class="px-4 py-3 text-slate-500">
+                                        <div class="flex items-center gap-2">
+                                            <a href="{% url 'post_detail' post.slug %}"
+                                                class="flex items-center justify-center size-8 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
+                                                <span class="material-symbols-outlined !text-xl">visibility</span>
+                                            </a>
+                                            <a href="{% url 'delete_post_admin' post.slug %}"
+                                                class="flex items-center justify-center size-8 rounded-md hover:bg-red-100 dark:hover:bg-red-500/20 text-red-500 dark:text-red-400 transition-colors">
+                                                <span class="material-symbols-outlined !text-xl">delete</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+        </main>
+    </div>
+</body>
+
+
+{% endblock bodycontent %}

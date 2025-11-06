@@ -1,0 +1,109 @@
+{% extends 'blog/base.html' %}
+{% block bodycontent %}
+
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        <div class="flex h-full grow flex-row">
+            <!-- SideNavBar -->
+            {% include 'admin/header.html' %}
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto p-6 lg:p-10">
+                <div class="mx-auto max-w-7xl">
+                    <!-- PageHeading -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Users Management
+                            </p>
+                            <p class="text-gray-500 dark:text-gray-400">Manage all registered users on BlogSphere.</p>
+                        </div>
+                    </div>
+                    <!-- Card Container -->
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-background-dark">
+                        <!-- Table -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-white/5">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                                            scope="col">ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                                            scope="col">Username</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                                            scope="col">Email</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                                            scope="col">Status</th>
+                                        <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                                            scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-background-dark">
+                                    {% for i in users %}
+                                    <tr class="transition-colors hover:bg-gray-50 dark:hover:bg-white/5">
+                                        <td
+                                            class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                            {{i.id}}</td>
+                                        <td
+                                            class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                                            {{i.name}}</td>
+                                        <td
+                                            class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                            {{i.email}}</td>
+                                        <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                            <span
+                                                class="inline-flex items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-medium text-success dark:bg-success/20">
+                                                {% if i.is_active %} Active
+                                                {% else %}{% if i.is_blocked %}Blocked
+                                                {% else %}Unctive{%endif%}{%endif %}
+                                            </span>
+                                        </td>
+                                        <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <a href="{% url 'block_user' i.id %}"
+                                                    class="inline-flex h-8 items-center justify-center rounded-lg bg-warning/10 px-3 text-xs font-semibold text-warning transition-colors hover:bg-warning/20 dark:bg-warning/20 dark:hover:bg-warning/30">
+                                                    {% if i.is_blocked %}Unblock{% else %}Block{%endif%}</a>
+                                                <a href="{% url 'delete_user' i.id %}"
+                                                    class="inline-flex h-8 items-center justify-center rounded-lg bg-danger/10 px-3 text-xs font-semibold text-danger transition-colors hover:bg-danger/20 dark:bg-danger/20 dark:hover:bg-danger/30">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Empty State Example -->
+
+                <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+                    id="delete-modal" style="display: none;">
+                    <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl dark:bg-gray-800">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-danger/10 text-danger dark:bg-danger/20">
+                                <span class="material-symbols-outlined text-2xl">warning</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Confirm Deletion</h3>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Are you sure you want to delete
+                                    this user?
+                                    This action cannot be undone.</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex justify-end gap-3">
+                            <button
+                                class="flex h-10 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+                                Cancel
+                            </button>
+                            <button
+                                class="flex h-10 items-center justify-center rounded-lg bg-danger px-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-danger/90">
+                                Confirm Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+</body>
+
+{% endblock bodycontent %}

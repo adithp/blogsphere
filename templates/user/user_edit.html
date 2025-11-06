@@ -1,0 +1,98 @@
+{% extends 'blog/base.html' %}
+{% block bodycontent %}
+
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+    <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            {% include 'blog/header.html' %}
+            <main class="px-4 sm:px-6 lg:px-8 flex flex-1 justify-center py-5 sm:py-10">
+                <div class="layout-content-container flex flex-col w-full max-w-3xl flex-1">
+                    {% if updated %}
+                    <h3 style="color: green;">Update Succesfully</h3>
+                    {% endif %}
+                    <div class="flex flex-wrap justify-between gap-3 p-4">
+                        <h1 class="text-text-light dark:text-text-dark text-3xl md:text-4xl font-bold leading-tight">
+                            Edit Profile</h1>
+                    </div>
+                    <form class="w-full" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-xl shadow-md border border-border-light dark:border-border-dark p-6 md:p-8 space-y-8">
+                            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                                <div class="relative">
+                                    {% if profile_image %}
+                                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-32 h-32 border-4 border-white dark:border-card-dark shadow-md"
+                                        data-alt="User profile picture preview"
+                                        style='background-image: url({{profile_image}});'>
+                                    </div>
+                                    {% else %}
+                                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-32 h-32 border-4 border-white dark:border-card-dark shadow-md"
+                                        data-alt="User profile picture preview"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoJIZQyfeuRftS8cy0VJGdoIAnx4wbkgKfhK07tgJWTeI7mZtfV7ufk3vanIwS4VDOBsaN_zwXfI4XkKVwob_h8KbiXSD-N5PS3kt8ddIyLYetFBbrypx9Kkhr3qHCmhV8oMgtJ036aQhE3DtYeojYIEZr4E5eVuRhPBNnYo4GTHx9zB5WX1rlf_IwjeRTuksIeSfequpvGpZh2vhk0QzfC6EzsldbLH3AZgReScnqUlCuHR5I-XTwELuj0f_aGfXAoMhaeXp2YM-8");'>
+                                    </div>
+                                    {% endif %}
+                                    <label
+                                        class="absolute bottom-1 right-1 flex items-center justify-center w-10 h-10 bg-primary text-white rounded-full cursor-pointer hover:opacity-90 transition-opacity shadow-md"
+                                        for="image-upload">
+                                        <span class="material-symbols-outlined">photo_camera</span>
+                                    </label>
+                                    <input class="hidden" id="image-upload" name="profile_image" type="file" />
+                                </div>
+                                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                                    <h2 class="text-text-light dark:text-text-dark text-2xl font-bold leading-tight">
+                                        Your Profile</h2>
+                                    <p class="text-text-muted-light dark:text-text-muted-dark text-sm mt-1">Update your
+                                        photo and personal details.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-text-light dark:text-text-dark pb-2"
+                                        for="full_name">Full Name</label>
+                                    <input
+                                        class="form-input flex w-full rounded-lg text-text-light dark:text-text-dark focus:outline-none focus:ring-2 border border-border-light dark:border-border-dark bg-white dark:bg-background-dark placeholder:text-text-muted-light dark:placeholder:text-text-muted-dark px-4 py-2.5 text-base transition-colors"
+                                        id="full_name" name="name" placeholder="Enter your full name" type="text"
+                                        value="{{name}}" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-text-light dark:text-text-dark pb-2"
+                                        for="bio">Your Bio</label>
+                                    <textarea
+                                        class="form-input flex w-full min-h-[120px] resize-y overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-none focus:ring-2 border border-border-light dark:border-border-dark bg-white dark:bg-background-dark placeholder:text-text-muted-light dark:placeholder:text-text-muted-dark p-4 text-base transition-colors"
+                                        id="bio" name="bio"
+                                        placeholder="Tell us a little about yourself...">{{bio}}</textarea>
+                                </div>
+                            </div>
+                            <div class="flex justify-end pt-4">
+                                <button
+                                    class="flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary text-slate-50 text-base font-bold leading-normal transition-opacity hover:opacity-90 disabled:opacity-50"
+                                    type="submit">
+                                    <span class="material-symbols-outlined text-xl">save</span>
+                                    <span>Save Changes</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="hidden mt-6 flex items-center gap-4 rounded-lg bg-green-100 dark:bg-green-900/50 p-4 border border-green-200 dark:border-green-800"
+                        id="success-alert" role="alert">
+                        <span class="material-symbols-outlined text-green-700 dark:text-green-300">check_circle</span>
+                        <p class="text-sm font-medium text-green-800 dark:text-green-200">Your profile has been updated
+                            successfully!</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-input:focus {
+            --tw-ring-color: theme('colors.primary / 50%');
+            border-color: theme('colors.primary');
+        }
+    </style>
+</body>
+{% endblock bodycontent %}

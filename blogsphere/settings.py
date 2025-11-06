@@ -25,8 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'ckeditor',
+    'ckeditor_uploader',
+    
     
     'accounts.apps.AccountsConfig',
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                
+                'blog.context_prosessor.login_details'
             ],
         },
     },
@@ -91,6 +98,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'neuronerdsexplain@gmail.com'
+EMAIL_HOST_PASSWORD = 'zgrafmoaqcwhzrgb'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 
 
@@ -111,9 +126,11 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]   
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
 
 

@@ -23,7 +23,10 @@ from django.conf.urls.static import static
 from accounts.views import signup
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('accounts.urls'))
+    path('',include('accounts.urls')),
+    path("ckeditor/", include('ckeditor_uploader.urls')),
+    path('',include('blog.urls')),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

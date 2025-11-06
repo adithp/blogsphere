@@ -1,0 +1,109 @@
+{% extends 'blog/base.html' %}
+{% block bodycontent %}
+
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    {% include 'blog/header.html' %}
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        <div class="flex h-full grow flex-col">
+            <main class="flex flex-1 justify-center py-5">
+                <div class="flex w-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
+                    <!-- HeroSection -->
+                    <div class="@container">
+                        <div class="@[480px]:p-4">
+                            <div class="flex min-h-[400px] flex-col items-center justify-center gap-6 rounded-xl bg-cover bg-center bg-no-repeat p-4 @[480px]:gap-8"
+                                data-alt="Abstract blue and purple gradient background"
+                                style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAPsNz6UyJsgQk1QpwpBAIJ2fV9Tto27T0NjAXKrcH2JM1K6EXI61c96DchoY3V8x5AR759FYxbe51hs-UBBDMQ00Trq8zdgPAmQS9HHxc97tzLz7PPwdK0sImld9mY6cq63yi8uotrXOtZ2tByuvFy6Mu9pHcP6TvMSnS0y0xP_-uJILzXYAJ53gbtot8JTk_M3gTu615yZJT-VS9B-B_LFlgJcVShJGOHwHvCmtV9mJRiLsqZ-EtS8LVTKU2Rq4ELuYZ3BC6g3KW3");'>
+                                <div class="flex flex-col gap-2 text-center">
+                                    <h1
+                                        class="font-display text-4xl font-black leading-tight tracking-[-0.033em] text-white @[480px]:text-5xl">
+                                        Discover Stories &amp; Ideas</h1>
+                                    <h2
+                                        class="font-display text-sm font-normal leading-normal text-white @[480px]:text-base">
+                                        A modern,
+                                        clean, and inviting entry point for readers to explore engaging content.</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SearchBar - Floating -->
+                    <div class="relative z-10 -mt-16 flex justify-center px-4 sm:px-8">
+                        <div class="w-full max-w-2xl">
+                            <label
+                                class="flex h-14 w-full flex-col rounded-xl bg-white dark:bg-background-dark shadow-lg dark:shadow-2xl dark:ring-1 dark:ring-white/10">
+                                <form class="flex h-full w-full flex-1 items-stretch rounded-xl"
+                                    action="{% url 'all_posts_render' %}" method="GET">
+
+                                    <div class="flex items-center justify-center pl-4 text-gray-400 dark:text-gray-500">
+                                        <span class="material-symbols-outlined">search</span>
+                                    </div>
+                                    <input
+                                        class="font-display form-input h-full w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-transparent px-4 pl-2 text-base font-normal leading-normal text-gray-900 placeholder:text-gray-400 focus:outline-0 focus:ring-0 dark:text-gray-100 dark:placeholder:text-gray-500"
+                                        placeholder="Search posts..." name="search" />
+                                    <button type="submit"></button>
+                                </form>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- SectionHeader -->
+                    <div class="mt-12">
+                        <h2
+                            class="font-display px-4 pb-3 pt-5 text-[22px] font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">
+                            Latest Posts</h2>
+                    </div>
+                    <!-- ImageGrid -->
+                    <div class="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {% for post in posts %}
+                        <div
+                            class="group flex transform flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-gray-800/50 dark:shadow-none dark:ring-1 dark:ring-white/10 dark:hover:bg-gray-800">
+                            <a class="block" href="{% url 'post_detail' post.slug %}">
+                                <div class="aspect-video w-full bg-cover bg-center bg-no-repeat"
+                                    data-alt="Colorful abstract geometric shapes"
+                                    style='background-image: url({{post.thumbnail.url}})'>
+                                </div>
+                            </a>
+                            <div class="flex flex-1 flex-col p-4">
+                                <a class="block" href="{% url 'post_detail' post.slug %}">
+                                    <p
+                                        class="font-display text-lg font-bold leading-normal text-gray-900 dark:text-white">
+                                        {{post.title}}</p>
+                                </a>
+                                <div class="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span class="material-symbols-outlined mr-1.5 text-base">person</span>
+                                    <span>{{post.author}}</span>
+                                    <span class="mx-2">·</span>
+                                    <span>{{post.created}}</span>
+                                </div>
+                                <div class="mt-4 flex flex-grow items-end justify-between">
+                                    <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                                        <div class="flex items-center">
+                                            <span class="material-symbols-outlined mr-1.5 text-base">thumb_up</span>
+                                            <span>{{post.likes_count}}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="material-symbols-outlined mr-1.5 text-base">chat_bubble</span>
+                                            <span>{{post.comment_count}}</span>
+                                        </div>
+                                    </div>
+                                    <a class="flex h-10 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white transition-colors hover:bg-primary/90"
+                                        href="#">
+                                        <span class="truncate">View Post</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- Post Card 2 -->
+                    </div>
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-center p-4">
+                        <a class="flex h-10 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-10 text-sm font-bold text-white transition-colors hover:bg-primary/90"
+                            href="{% url 'all_posts_render' %}">
+                            <span class="truncate">View All Post</span>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+{% endblock bodycontent %}

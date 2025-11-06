@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+{% block bodycontent %}
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+    <div class="relative flex min-h-screen w-full flex-col group/design-root">
+        <div class="flex flex-1">
+            <!-- SideNavBar -->
+            {% include 'admin/header.html' %}
+            <!-- Main Content -->
+            <main class="flex-1 p-4 sm:p-6 lg:p-8">
+                <div class="mx-auto max-w-7xl">
+                    <!-- PageHeading -->
+                    <div class="flex flex-wrap justify-between gap-3 mb-6">
+                        <div class="flex min-w-72 flex-col gap-2">
+                            <p
+                                class="text-text-light dark:text-text-dark text-4xl font-black leading-tight tracking-[-0.033em]">
+                                Admin Dashboard</p>
+                            <p
+                                class="text-text-secondary-light dark:text-text-secondary-dark text-base font-normal leading-normal">
+                                Welcome back, Admin. Here's a summary of BlogSphere's activity.</p>
+                        </div>
+                    </div>
+                    <!-- Stats -->
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                            <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">Total
+                                Users</p>
+                            <p
+                                class="text-text-light dark:text-text-dark tracking-light text-3xl font-bold leading-tight">
+                                {{user_count}}</p>
+
+                        </div>
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                            <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">Total
+                                Posts</p>
+                            <p
+                                class="text-text-light dark:text-text-dark tracking-light text-3xl font-bold leading-tight">
+                                {{post_count}}</p>
+
+                        </div>
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                            <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">Total
+                                Comments</p>
+                            <p
+                                class="text-text-light dark:text-text-dark tracking-light text-3xl font-bold leading-tight">
+                                {{comment_count}}</p>
+                        </div>
+                        <div
+                            class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                            <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">Total
+                                Likes</p>
+                            <p
+                                class="text-text-light dark:text-text-dark tracking-light text-3xl font-bold leading-tight">
+                                {{likes_count}}</p>
+
+                        </div>
+                    </div>
+                    <!-- Actions and Analytics Section -->
+
+</body>
+
+{% endblock bodycontent %}

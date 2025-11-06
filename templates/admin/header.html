@@ -1,0 +1,81 @@
+<aside
+    class="sticky top-0 h-screen w-64 flex-shrink-0 flex-col justify-between border-r border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-4 hidden lg:flex">
+    <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+
+
+            {% if cuuser.user_profile %}
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin user avatar"
+                style='background-image: url("{{cuuser.user_profile}}");'>
+            </div>
+            {% else %}
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin user avatar"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC4qHKWDWIx-gtiz3-UvLUkIHjcQZY8Yqi6kBOf9lkuse7KLVRsYjkmdPyMQEAeTVQKNeKLQ6zbn-7yAt8_NWHVVYgJEJl74Eyu9RebusibsKwk61Ej4KgeL1P89XrCe2KaJ084RFXCJs1B6CiKlxvCc7aEHrfkIztVE3WwLuz3XhyPkxHE2PlSyCCa-iBjbs2QmwOdQUI8GA6bjDQKFWM2KFijLtaH4waDmlzqqyXx-5K_MnzdMjTYQClgkJyyUjCSYPixUFaZmW0u");'>
+            </div>
+            {% endif %}
+            <div class="flex flex-col">
+                <h1 class="text-text-light dark:text-text-dark text-base font-medium leading-normal">{{cuuser.name}}
+                </h1>
+                <p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal leading-normal">
+                    {{cuuser.useremail}}</p>
+            </div>
+        </div>
+        <nav class="flex flex-col gap-2 mt-4">
+            {% if current == 'admin_dashboard' %}
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary"
+                href="{% url 'admin_dashboard' %}">
+                <span class="material-symbols-outlined text-primary">dashboard</span>
+                <p class="text-sm font-medium leading-normal">Dashboard</p>
+            </a>
+            {% else %}
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 group"
+                href="{% url 'admin_dashboard' %}">
+                <span
+                    class="material-symbols-outlined text-text-light dark:text-text-dark group-hover:text-primary">dashboard</span>
+                <p class="text-sm font-medium leading-normal">Dashboard</p>
+            </a>
+            {% endif %}
+            {% if current == 'user_mana' %}
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary"
+                href="{% url 'user_management' %}"">
+                <span class=" material-symbols-outlined text-primary">group</span>
+                <p class="text-sm font-medium leading-normal"> Manage Users</p>
+            </a>
+            {% else %}
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 group"
+                href="{% url 'user_management' %}"">
+                <span
+                    class=" material-symbols-outlined text-text-light dark:text-text-dark
+                group-hover:text-primary">group</span>
+                <p class="text-sm font-medium leading-normal"> Manage Users</p>
+            </a>
+            {% endif %}
+            {% if current == 'posts_mana' %}
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary"
+                href="{% url 'posts_management' %}">
+                <span class=" material-symbols-outlined text-primary">article</span>
+                <p class="text-sm font-medium leading-normal"> Manage Posts</p>
+            </a>
+            {% else %}
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 group"
+                href="{% url 'posts_management' %}  ">
+                <span class=" material-symbols-outlined text-text-light dark:text-text-dark
+                group-hover:text-primary">article</span>
+                <p class="text-sm font-medium leading-normal"> Manage Posts</p>
+            </a>
+            {% endif %}
+
+
+
+        </nav>
+    </div>
+    <div class="flex flex-col gap-1">
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 group" href="{% url 'logout' %}">
+            <span
+                class="material-symbols-outlined text-text-light dark:text-text-dark group-hover:text-primary">logout</span>
+            <p class="text-text-light dark:text-text-dark group-hover:text-primary text-sm font-medium leading-normal">
+                Logout</p>
+        </a>
+    </div>
+</aside>

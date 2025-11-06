@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Password Reset Confirmation - BlogSphere</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1f89e5",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a21",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-display">
+    <div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root"
+        style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full min-h-screen grow flex-col">
+            <div class="px-4 sm:px-6 lg:px-8 flex flex-1 justify-center items-center py-10">
+                <div class="layout-content-container flex flex-col w-full max-w-md flex-1">
+                    <div
+                        class="flex flex-col items-center justify-center text-center p-6 sm:p-8 @container bg-white dark:bg-background-dark/50 rounded-xl shadow-sm">
+                        <div class="flex flex-col items-center justify-start rounded-lg">
+                            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 mb-6">
+                                <span class="material-symbols-outlined text-4xl text-primary">mark_email_read</span>
+                            </div>
+                            <div class="flex w-full grow flex-col items-stretch justify-center gap-2">
+                                <p
+                                    class="text-slate-900 dark:text-slate-100 text-2xl sm:text-3xl font-bold leading-tight tracking-tight">
+                                    Password Reset Email Sent</p>
+                                <div class="flex items-end justify-center">
+                                    <p
+                                        class="text-slate-600 dark:text-slate-400 text-base font-normal leading-relaxed text-center">
+                                        A password reset link has been sent to your email address. Please check your
+                                        inbox and spam folder. If an account with that email exists, you will receive
+                                        instructions shortly.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p
+                        class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal pb-3 pt-6 px-4 text-center">
+                        <a class="underline hover:text-primary dark:hover:text-primary transition-colors"
+                            href="{% url 'login' %}">Back
+                            to Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

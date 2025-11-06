@@ -1,0 +1,109 @@
+{% extends 'blog/base.html' %}
+{% block bodycontent %}
+
+
+<body class="font-display">
+
+
+    <div
+        class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <div class="flex flex-1 justify-center py-5">
+                <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                    {% include 'blog/header.html' %}
+                    <main class="flex-1">
+                        <div class="blog-content-container">
+                            <div class="rich-content">
+
+                                {{post.content | safe}}
+                            </div>
+                        </div>
+
+                        <form method="GET" action="{%url 'add_like' post.slug %}"
+                            class="flex items-center flex-wrap gap-4 px-4 py-6 border-b border-slate-200 dark:border-slate-800">
+                            {% if is_liked %}
+                            <button
+                                class="group flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-primary/40 hover:bg-primary/50 transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-primary text-xl fill-current">thumb_up</span>
+                                <p class="text-primary text-[13px] font-bold leading-normal tracking-[0.015em]">
+                                    {{post.likes_count}}</p>
+                            </button>
+                            {% else %}
+
+
+                            <button
+                                class="group flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-primary text-xl">thumb_up</span>
+                                <p class="text-primary text-[13px] font-bold leading-normal tracking-[0.015em]">
+                                    {{post.likes_count}}</p>
+                            </button>
+
+                            {% endif %}
+                        </form>
+
+                        <section class="p-4 mt-6">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">Comments
+                                ({{post.comment_count}})
+                            </h3>
+                            <div class="space-y-6">
+                                {% for comment in comments %}
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0">
+                                        <div
+                                            class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+                                            {% if comment.user.profile_image %}
+                                            <img src="{{ comment.user.profile_image.url }}"
+                                                alt="{{ comment.user.name }}" class="w-full h-full object-cover">
+                                            {% else %}
+                                            <span
+                                                class="material-symbols-outlined text-slate-500 dark:text-slate-400">person</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2">
+                                            <p class="font-bold text-slate-800 dark:text-slate-200">{{comment.user}}</p>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">2 hours ago</p>
+                                        </div>
+                                        <p class="mt-1 text-slate-700 dark:text-slate-300">{{comment.content}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <div>
+                                    <form class="space-y-4" method="POST" action="{% url 'add_comment' post.slug %}">
+                                        {% csrf_token %}
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                                                for="comment">Comment</label>
+                                            <textarea
+                                                class="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary"
+                                                id="comment" name="content" rows="4" req></textarea>
+                                        </div>
+                                        <div>
+                                            <button
+                                                class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-slate-50 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors"
+                                                type="submit">
+                                                <span class="truncate">Submit Comment</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                </form>
+
+
+                            </div>
+                        </section>
+
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock bodycontent %}
